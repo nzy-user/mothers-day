@@ -18,7 +18,6 @@
     position: relative;
   }
 
-  /* ===== 飘落花瓣 ===== */
   .petals {
     position: fixed;
     top: 0; left: 0;
@@ -52,7 +51,6 @@
     pointer-events: none;
   }
 
-  /* 信封容器 */
   .envelope-wrapper {
     position: relative;
     width: 280px;
@@ -67,7 +65,6 @@
     50%      { transform: translateY(-10px); }
   }
 
-  /* 信封身体 */
   .envelope-body {
     position: absolute;
     bottom: 0;
@@ -84,7 +81,6 @@
     justify-content: center;
     z-index: 2;
   }
-  /* 信封内层 */
   .envelope-body::after {
     content: "";
     position: absolute;
@@ -94,7 +90,6 @@
     pointer-events: none;
   }
 
-  /* 信封封口（三角形翻盖） */
   .envelope-flap {
     position: absolute;
     top: 10px;
@@ -112,7 +107,6 @@
     transform: rotateX(180deg);
   }
 
-  /* 信封封口装饰 - 爱心火漆 */
   .seal {
     position: absolute;
     top: 62px;
@@ -129,7 +123,6 @@
     border: 2px solid #fff;
   }
 
-  /* 信封上的字 */
   .envelope-label {
     position: absolute;
     bottom: 36px;
@@ -141,7 +134,6 @@
     opacity: 0.7;
   }
 
-  /* 拆开按钮 */
   .open-btn {
     margin-top: 24px;
     display: inline-flex;
@@ -191,12 +183,13 @@
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     border-radius: 24px;
-    padding: 48px 36px 40px;
-    max-width: 380px;
-    width: 90vw;
+    padding: 40px 20px 36px;
+    max-width: 360px;
+    width: 92vw;
     text-align: center;
     box-shadow: 0 20px 60px rgba(240, 98, 146, 0.25), 0 0 0 1px rgba(255,255,255,0.6);
     animation: cardIn 0.8s 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+    margin: 0 auto;
   }
   @keyframes cardIn {
     0%   { opacity: 0; transform: translateY(40px) scale(0.92); }
@@ -238,18 +231,19 @@
     border-radius: 2px;
   }
   .message {
-    font-size: 16px;
+    font-size: 15px;
     color: #555;
     line-height: 2;
     text-align: left;
-    padding: 0 8px;
+    padding: 0 4px;
+    word-break: break-word;
+    overflow-wrap: break-word;
   }
   .message p {
-    text-indent: 2em;
-    margin-bottom: 4px;
+    text-indent: 1.5em;
+    margin-bottom: 6px;
   }
 
-  /* 音乐按钮 */
   .music-btn {
     margin-top: 28px;
     display: inline-flex;
@@ -291,7 +285,6 @@
 </head>
 <body>
 
-<!-- 飘落花瓣 -->
 <div class="petals" id="petals"></div>
 
 <!-- ===== 信封阶段 ===== -->
@@ -423,10 +416,8 @@ function toggleMusic() {
 
 // ========== 拆开信封 ==========
 function openEnvelope() {
-  // 1. 翻盖打开
   document.getElementById('envelopeFlap').classList.add('open');
 
-  // 2. 初始化音频上下文（利用这次用户手势）
   if (!audioCtx) {
     audioCtx = new (window.AudioContext || window.webkitAudioContext)();
   }
@@ -434,17 +425,13 @@ function openEnvelope() {
     audioCtx.resume();
   }
 
-  // 3. 延迟后隐藏信封，显示卡片
   setTimeout(function() {
     document.getElementById('envelopeStage').classList.add('hidden');
     document.getElementById('cardStage').classList.add('show');
-
-    // 4. 自动播放音乐
     startMusic();
   }, 750);
 }
 
-// 微信/iOS Safari 额外唤醒
 document.addEventListener('touchstart', function() {
   if (audioCtx && audioCtx.state === 'suspended') {
     audioCtx.resume();
