@@ -15,7 +15,9 @@
     justify-content: center;
     font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
     overflow-x: hidden;
+    overflow-y: auto;
     position: relative;
+    padding: 10px;
   }
 
   .petals {
@@ -44,6 +46,8 @@
     flex-direction: column;
     align-items: center;
     transition: opacity 0.8s, transform 0.8s;
+    width: 100%;
+    max-width: 360px;
   }
   .envelope-stage.hidden {
     opacity: 0;
@@ -170,6 +174,8 @@
     opacity: 0;
     transform: translateY(30px) scale(0.94);
     transition: opacity 0.8s 0.5s, transform 0.8s 0.5s;
+    width: 100%;
+    max-width: 360px;
   }
   .card-stage.show {
     display: block;
@@ -183,13 +189,12 @@
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     border-radius: 24px;
-    padding: 40px 20px 36px;
-    max-width: 360px;
-    width: 92vw;
+    padding: 36px 16px 32px;
+    width: 100%;
     text-align: center;
     box-shadow: 0 20px 60px rgba(240, 98, 146, 0.25), 0 0 0 1px rgba(255,255,255,0.6);
     animation: cardIn 0.8s 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
-    margin: 0 auto;
+    overflow: hidden;
   }
   @keyframes cardIn {
     0%   { opacity: 0; transform: translateY(40px) scale(0.92); }
